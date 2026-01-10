@@ -376,9 +376,9 @@ p {
     inset: 0;
     z-index: -1;
     background: linear-gradient(180deg,
-            rgba(10, 10, 10, 0.7) 0%,
-            rgba(10, 10, 10, 0.5) 50%,
-            rgba(10, 10, 10, 0.9) 100%);
+            rgba(10, 10, 10, 0.3) 0%,
+            rgba(10, 10, 10, 0.2) 50%,
+            rgba(10, 10, 10, 0.5) 100%);
 }
 
 .hero-content {
