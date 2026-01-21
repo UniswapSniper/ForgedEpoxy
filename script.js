@@ -180,25 +180,20 @@ function initFormHandling() {
         submitBtn.textContent = 'Sending...';
         submitBtn.disabled = true;
 
-        // Collect form data for EmailJS using getElementById for reliability
-        const firstName = document.getElementById('firstName').value;
-        const lastName = document.getElementById('lastName').value;
+        // Collect form data for EmailJS
+        const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const phone = document.getElementById('phone').value;
-        const projectType = document.getElementById('projectType').value;
-        const squareFootage = document.getElementById('squareFootage').value;
-        const message = document.getElementById('message').value;
+        const serviceState = document.getElementById('serviceState').value;
 
         const templateParams = {
-            name: `${firstName} ${lastName}`,
-            first_name: firstName,
-            last_name: lastName,
+            from_name: name,
+            to_name: 'Forged Resin Team',
+            name: name,
             email: email,
             phone: phone,
-            project_type: getProjectTypeLabel(projectType),
-            square_footage: squareFootage || 'Not specified',
-            message: message || 'No additional details provided',
-            from_name: `${firstName} ${lastName}`
+            service_state: serviceState,
+            message: `New Quote Request from ${name}.\nPhone: ${phone}\nLocation: ${serviceState}`
         };
 
         console.log('Sending email with params:', templateParams);
