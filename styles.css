@@ -279,6 +279,7 @@ h2 {
     margin-bottom: 1.5rem;
     color: #000;
     text-transform: uppercase;
+    text-align: center;
 }
 
 .services-buttons {
@@ -301,12 +302,13 @@ h2 {
     text-transform: uppercase;
     font-size: 0.85rem;
     border: none;
-    cursor: pointer;
+    cursor: default;
+    pointer-events: none;
     transition: background 0.3s;
 }
 
 .service-btn:hover {
-    background-color: #27272a;
+    background-color: #3f3f46;
 }
 
 .service-btn-icon {
