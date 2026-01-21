@@ -5,10 +5,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize all components
     initNavbar();
-    initMobileNav();
+    // initMobileNav(); // Component removed
     initSmoothScroll();
     initScrollAnimations();
-    initLightbox();
+    // initLightbox(); // Component removed
     initFormHandling();
 });
 
