@@ -124,10 +124,12 @@ h2 {
 }
 
 .logo-img {
-    height: 32px;
-    /* Adjusted height */
+    height: 50px;
+    /* Increased visibility */
     width: auto;
     margin-bottom: 0.25rem;
+    filter: brightness(0) invert(1);
+    /* Ensure logo is white */
 }
 
 .logo p {
