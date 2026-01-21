@@ -121,6 +121,8 @@ h2 {
     flex-direction: column;
     text-transform: uppercase;
     text-decoration: none;
+    align-items: flex-start;
+    /* Prevents image from stretching */
 }
 
 .logo-img {
@@ -128,6 +130,8 @@ h2 {
     /* Increased visibility */
     width: auto;
     margin-bottom: 0.25rem;
+    object-fit: contain;
+    /* Ensures aspect ratio is preserved */
 }
 
 .logo p {
