@@ -4,10 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | Forged Resin & Epoxy Flooring</title>
-    <meta name="description" content="Get in touch with Forged Epoxy Flooring. Contact us for a free consultation or more information.">
+    <title>Contact Us | Forged Resin & Epoxy Flooring Phoenix AZ</title>
+    <meta name="description"
+        content="Contact Forged Resin & Epoxy Flooring for a free consultation. Get premium epoxy floor coatings in Phoenix, Arizona and the Greater Phoenix Metropolitan Area.">
+    <meta name="keywords"
+        content="contact epoxy flooring, free consultation Phoenix AZ, garage floor coating quote, Forged Resin contact">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://forgedresin.com/contact.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Contact Us | Forged Resin & Epoxy Flooring">
+    <meta property="og:description"
+        content="Get in touch for a free consultation. Premium epoxy floor coatings in Phoenix, Arizona.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://forgedresin.com/contact.html">
+    <meta property="og:image" content="https://forgedresin.com/assets/hero-bg.png">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Forged Resin & Epoxy Flooring">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contact Forged Resin & Epoxy Flooring">
+    <meta name="twitter:description" content="Get a free consultation for premium epoxy floor coatings in Phoenix, AZ.">
+    <meta name="twitter:image" content="https://forgedresin.com/assets/hero-bg.png">
+
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/jpeg" href="assets/logo-icon.jpg">
+    <link rel="apple-touch-icon" href="assets/logo-icon.jpg">
+
+    <!-- Structured Data - ContactPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Contact Forged Resin & Epoxy Flooring",
+        "description": "Get in touch with Forged Resin & Epoxy Flooring for a free consultation.",
+        "url": "https://forgedresin.com/contact.html",
+        "mainEntity": {
+            "@type": "LocalBusiness",
+            "name": "Forged Resin & Epoxy Flooring",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Phoenix",
+                "addressRegion": "AZ",
+                "addressCountry": "US"
+            },
+            "areaServed": "Greater Phoenix Metropolitan Area"
+        }
+    }
+    </script>
 
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -20,86 +65,115 @@
 
 <body>
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <img src="assets/logo-new.jpg" alt="Forged Resin & Epoxy Flooring" class="logo-img">
-                <p>Transform Your Garage. Elevate Your Home.</p>
-            </a>
-        </div>
-    </nav>
-
-    <!-- Contact Section -->
-    <section class="section contact-section" id="contact">
-        <div class="container">
-            <h2>CONTACT US</h2>
-            <div class="contact-wrapper">
-                <!-- Contact Info -->
-                <div class="contact-info">
-                    <h3>Get In Touch</h3>
-                    <p>Ready to transform your space? We'd love to hear from you. Fill out the form or contact us directly.</p>
-                    
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <h4>📍 Location</h4>
-                            <p>Phoenix, Arizona</p>
-                        </div>
-                        <div class="contact-item">
-                            <h4>⏰ Service Areas</h4>
-                            <p>Greater Phoenix Metropolitan Area</p>
-                        </div>
-                        <div class="contact-item">
-                            <h4>💬 Inquiries</h4>
-                            <p>Use the form to request a free consultation</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contact Form -->
-                <form class="contact-form" id="contactForm">
-                    <h3>Free Consultation Request</h3>
-
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">Phone</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="serviceState">Service In:</label>
-                        <select id="serviceState" name="serviceState">
-                            <option value="" disabled selected>Serviced In:</option>
-                            <option value="AZ">Arizona</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" placeholder="Tell us about your project..."></textarea>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">SEND MESSAGE</button>
-                </form>
+    <header>
+        <nav class="navbar" id="navbar" aria-label="Main navigation">
+            <div class="container nav-container">
+                <a href="index.html" class="logo" aria-label="Forged Resin & Epoxy Flooring - Home">
+                    <img src="assets/logo-new.jpg" alt="Forged Resin & Epoxy Flooring logo" class="logo-img" width="200"
+                        height="50" loading="eager">
+                    <p>Transform Your Garage. Elevate Your Home.</p>
+                </a>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <ul class="nav-links" id="navLinks" role="menubar">
+                    <li role="none"><a href="index.html" role="menuitem">Home</a></li>
+                    <li role="none"><a href="reviews.html" role="menuitem">Reviews</a></li>
+                    <li role="none"><a href="process.html" role="menuitem">Our Process</a></li>
+                    <li role="none"><a href="contact.html" class="active" role="menuitem">Contact</a></li>
+                </ul>
             </div>
-        </div>
-    </section>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Contact Section -->
+        <section class="section contact-section" id="contact" aria-label="Contact information and form">
+            <div class="container">
+                <h1 class="page-title">CONTACT US</h1>
+                <p class="section-subtitle">Ready to transform your space? Let's get started</p>
+                <div class="contact-wrapper">
+                    <!-- Contact Info -->
+                    <div class="contact-info">
+                        <h2>Get In Touch</h2>
+                        <p>Ready to transform your space? We'd love to hear from you. Fill out the form or contact us
+                            directly.</p>
+
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <h3>📍 Location</h3>
+                                <p>Phoenix, Arizona</p>
+                            </div>
+                            <div class="contact-item">
+                                <h3>⏰ Service Areas</h3>
+                                <p>Greater Phoenix Metropolitan Area</p>
+                            </div>
+                            <div class="contact-item">
+                                <h3>💬 Inquiries</h3>
+                                <p>Use the form to request a free consultation</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <form class="contact-form" id="contactForm" aria-label="Contact form">
+                        <h2>Free Consultation Request</h2>
+
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your full name" required
+                                autocomplete="name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="your@email.com" required
+                                autocomplete="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required
+                                autocomplete="tel">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="serviceState">Service In:</label>
+                            <select id="serviceState" name="serviceState">
+                                <option value="" disabled selected>Select State</option>
+                                <option value="AZ">Arizona</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5"
+                                placeholder="Tell us about your project..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="contactSubmitBtn">SEND MESSAGE</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" role="contentinfo">
         <div class="container">
-            <div class="footer-nav">
-                <a href="reviews.html">Reviews</a>
-                <a href="process.html">Our Process</a>
-                <a href="contact.html">Contact Us</a>
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <p class="footer-tagline">Forged Resin & Epoxy Flooring</p>
+                    <p class="footer-location">Phoenix, Arizona</p>
+                </div>
+                <nav class="footer-nav" aria-label="Footer navigation">
+                    <a href="reviews.html">Reviews</a>
+                    <a href="process.html">Our Process</a>
+                    <a href="contact.html">Contact Us</a>
+                </nav>
+                <p class="footer-copyright">&copy; 2026 Forged Resin & Epoxy Flooring. All rights reserved.</p>
             </div>
         </div>
     </footer>

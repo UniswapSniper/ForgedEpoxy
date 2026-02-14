@@ -5,10 +5,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize all components
     initNavbar();
-    // initMobileNav(); // Component removed
+    initMobileNav();
     initSmoothScroll();
     initScrollAnimations();
-    // initLightbox(); // Component removed
     initFormHandling();
 });
 
@@ -17,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
    ============================================ */
 function initNavbar() {
     const navbar = document.getElementById('navbar');
+    if (!navbar) return;
+
     let lastScroll = 0;
 
     window.addEventListener('scroll', () => {
@@ -34,34 +35,71 @@ function initNavbar() {
 }
 
 /* ============================================
-   Mobile Navigation
+   Mobile Navigation (Hamburger Menu)
    ============================================ */
 function initMobileNav() {
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
 
-    navToggle.addEventListener('click', () => {
-        navToggle.classList.toggle('active');
-        navLinks.classList.toggle('active');
-        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+    if (!navToggle || !navLinks) return;
+
+    // Create overlay element
+    const overlay = document.createElement('div');
+    overlay.className = 'nav-overlay';
+    overlay.id = 'navOverlay';
+    document.body.appendChild(overlay);
+
+    function openMenu() {
+        navToggle.classList.add('active');
+        navToggle.setAttribute('aria-expanded', 'true');
+        navLinks.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+        navToggle.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navLinks.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Toggle menu on hamburger click
+    navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (navLinks.classList.contains('active')) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
     });
+
+    // Close menu when clicking overlay
+    overlay.addEventListener('click', closeMenu);
 
     // Close menu when clicking a link
     navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            navToggle.classList.remove('active');
-            navLinks.classList.remove('active');
-            document.body.style.overflow = '';
-        });
+        link.addEventListener('click', closeMenu);
     });
 
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
-            navToggle.classList.remove('active');
-            navLinks.classList.remove('active');
-            document.body.style.overflow = '';
+    // Close menu on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+            closeMenu();
+            navToggle.focus();
         }
+    });
+
+    // Close menu on resize if switching to desktop
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            if (window.innerWidth > 900 && navLinks.classList.contains('active')) {
+                closeMenu();
+            }
+        }, 100);
     });
 }
 
@@ -106,8 +144,6 @@ function initScrollAnimations() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Optional: Stop observing after animation
-                // observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
@@ -128,114 +164,152 @@ function initScrollAnimations() {
 }
 
 /* ============================================
-   Lightbox Gallery
-   ============================================ */
-function initLightbox() {
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = lightbox.querySelector('img');
-    const lightboxClose = document.getElementById('lightboxClose');
-    const galleryItems = document.querySelectorAll('.gallery-item');
-
-    galleryItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const imgSrc = item.dataset.image || item.querySelector('img').src;
-            lightboxImg.src = imgSrc;
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-    });
-
-    lightboxClose.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) {
-            closeLightbox();
-        }
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-            closeLightbox();
-        }
-    });
-
-    function closeLightbox() {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-/* ============================================
    Form Handling with EmailJS
    ============================================ */
 function initFormHandling() {
-    const form = document.getElementById('quoteForm');
+    const quoteForm = document.getElementById('quoteForm');
+    const contactForm = document.getElementById('contactForm');
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    // Handle Quote Form (index.html)
+    if (quoteForm) {
+        quoteForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
+            const submitBtn = quoteForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
 
-        // Show loading state
-        submitBtn.textContent = 'Sending...';
-        submitBtn.disabled = true;
+            // Show loading state
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
 
-        // Collect form data for EmailJS
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const phone = document.getElementById('phone').value;
-        const serviceState = document.getElementById('serviceState').value;
+            // Collect form data for EmailJS
+            const name = quoteForm.querySelector('#name').value;
+            const email = quoteForm.querySelector('#email').value;
+            const phone = quoteForm.querySelector('#phone').value;
+            const serviceState = quoteForm.querySelector('#serviceState').value;
 
-        const templateParams = {
-            from_name: name,
-            to_name: 'Forged Resin Team',
-            name: name,
-            email: email,
-            phone: phone,
-            service_state: serviceState,
-            message: `New Quote Request from ${name}.\nPhone: ${phone}\nLocation: ${serviceState}`
-        };
+            const templateParams = {
+                from_name: name,
+                to_name: 'Forged Resin Team',
+                name: name,
+                email: email,
+                phone: phone,
+                service_state: serviceState,
+                message: `New Quote Request from ${name}.\nPhone: ${phone}\nLocation: ${serviceState}`
+            };
 
-        console.log('Sending email with params:', templateParams);
+            console.log('Sending email with params:', templateParams);
 
-        try {
-            // Send email via EmailJS
-            const response = await emailjs.send('service_o6xl5mk', 'template_ujjygx7', templateParams);
-            console.log('EmailJS Success:', response);
+            try {
+                // Send email via EmailJS
+                const response = await emailjs.send('service_o6xl5mk', 'template_ujjygx7', templateParams);
+                console.log('EmailJS Success:', response);
 
-            // Success
-            submitBtn.textContent = '✓ Quote Requested!';
-            submitBtn.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
+                // Success
+                submitBtn.textContent = '✓ Quote Requested!';
+                submitBtn.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
 
-            // Reset form
-            form.reset();
+                // Reset form
+                quoteForm.reset();
 
-            // Show success message
-            showNotification('Thank you! We will contact you within 24 hours.', 'success');
+                // Show success message
+                showNotification('Thank you! We will contact you within 24 hours.', 'success');
 
-            // Reset button after delay
-            setTimeout(() => {
-                submitBtn.textContent = originalText;
-                submitBtn.style.background = '';
-                submitBtn.disabled = false;
-            }, 3000);
+                // Reset button after delay
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 3000);
 
-        } catch (error) {
-            console.error('EmailJS Error:', error);
+            } catch (error) {
+                console.error('EmailJS Error:', error);
 
-            // Error
-            submitBtn.textContent = 'Error - Try Again';
-            submitBtn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+                // Error
+                submitBtn.textContent = 'Error - Try Again';
+                submitBtn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
 
-            showNotification('Something went wrong. Please try again or call us directly.', 'error');
+                showNotification('Something went wrong. Please try again or call us directly.', 'error');
 
-            setTimeout(() => {
-                submitBtn.textContent = originalText;
-                submitBtn.style.background = '';
-                submitBtn.disabled = false;
-            }, 3000);
-        }
-    });
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 3000);
+            }
+        });
+    }
+
+    // Handle Contact Form (contact.html)
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+
+            // Show loading state
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            // Collect form data for EmailJS
+            const name = contactForm.querySelector('#name').value;
+            const email = contactForm.querySelector('#email').value;
+            const phone = contactForm.querySelector('#phone').value;
+            const serviceState = contactForm.querySelector('#serviceState').value;
+            const message = contactForm.querySelector('#message').value;
+
+            const templateParams = {
+                from_name: name,
+                to_name: 'Forged Resin Team',
+                name: name,
+                email: email,
+                phone: phone,
+                service_state: serviceState,
+                message: message || `Contact request from ${name}.\nPhone: ${phone}\nLocation: ${serviceState}`
+            };
+
+            console.log('Sending email with params:', templateParams);
+
+            try {
+                // Send email via EmailJS
+                const response = await emailjs.send('service_o6xl5mk', 'template_ujjygx7', templateParams);
+                console.log('EmailJS Success:', response);
+
+                // Success
+                submitBtn.textContent = '✓ Message Sent!';
+                submitBtn.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
+
+                // Reset form
+                contactForm.reset();
+
+                // Show success message
+                showNotification('Thank you! We will get back to you soon.', 'success');
+
+                // Reset button after delay
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 3000);
+
+            } catch (error) {
+                console.error('EmailJS Error:', error);
+
+                // Error
+                submitBtn.textContent = 'Error - Try Again';
+                submitBtn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+
+                showNotification('Something went wrong. Please try again or call us directly.', 'error');
+
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 3000);
+            }
+        });
+    }
 }
 
 // Helper function to convert project type value to readable label
@@ -258,9 +332,11 @@ function showNotification(message, type = 'success') {
     // Create notification element
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
+    notification.setAttribute('role', 'alert');
+    notification.setAttribute('aria-live', 'polite');
     notification.innerHTML = `
         <span>${message}</span>
-        <button onclick="this.parentElement.remove()">✕</button>
+        <button onclick="this.parentElement.remove()" aria-label="Close notification">✕</button>
     `;
 
     // Add styles
@@ -268,6 +344,9 @@ function showNotification(message, type = 'success') {
         position: fixed;
         bottom: 20px;
         right: 20px;
+        left: 20px;
+        max-width: 400px;
+        margin-left: auto;
         padding: 1rem 1.5rem;
         background: ${type === 'success' ? 'linear-gradient(135deg, #22c55e, #16a34a)' : 'linear-gradient(135deg, #ef4444, #dc2626)'};
         color: white;
@@ -276,8 +355,9 @@ function showNotification(message, type = 'success') {
         align-items: center;
         gap: 1rem;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        z-index: 1000;
+        z-index: 10000;
         animation: slideIn 0.3s ease;
+        font-size: 0.95rem;
     `;
 
     // Add animation keyframes
@@ -286,8 +366,8 @@ function showNotification(message, type = 'success') {
         style.id = 'notification-styles';
         style.textContent = `
             @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
+                from { transform: translateY(100%); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
             }
         `;
         document.head.appendChild(style);
@@ -305,22 +385,11 @@ function showNotification(message, type = 'success') {
 }
 
 /* ============================================
-   Parallax Effect (Optional Enhancement)
-   ============================================ */
-function initParallax() {
-    const hero = document.querySelector('.hero-bg');
-
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-    });
-}
-
-/* ============================================
    Counter Animation for Stats
    ============================================ */
 function animateCounters() {
     const stats = document.querySelectorAll('.stat-value');
+    if (stats.length === 0) return;
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
