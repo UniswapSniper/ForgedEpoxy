@@ -186,7 +186,7 @@ function initFormHandling() {
             const name = quoteForm.querySelector('#name').value;
             const email = quoteForm.querySelector('#email').value;
             const phone = quoteForm.querySelector('#phone').value;
-            const serviceState = quoteForm.querySelector('#serviceState').value;
+            const projectType = quoteForm.querySelector('#projectType').value;
 
             const templateParams = {
                 from_name: name,
@@ -194,8 +194,8 @@ function initFormHandling() {
                 name: name,
                 email: email,
                 phone: phone,
-                service_state: serviceState,
-                message: `New Quote Request from ${name}.\nPhone: ${phone}\nLocation: ${serviceState}`
+                service_state: getProjectTypeLabel(projectType),
+                message: `New Quote Request from ${name}.\nPhone: ${phone}\nProject: ${getProjectTypeLabel(projectType)}`
             };
 
             console.log('Sending email with params:', templateParams);
@@ -256,7 +256,7 @@ function initFormHandling() {
             const name = contactForm.querySelector('#name').value;
             const email = contactForm.querySelector('#email').value;
             const phone = contactForm.querySelector('#phone').value;
-            const serviceState = contactForm.querySelector('#serviceState').value;
+            const projectType = contactForm.querySelector('#projectType').value;
             const message = contactForm.querySelector('#message').value;
 
             const templateParams = {
@@ -265,8 +265,8 @@ function initFormHandling() {
                 name: name,
                 email: email,
                 phone: phone,
-                service_state: serviceState,
-                message: message || `Contact request from ${name}.\nPhone: ${phone}\nLocation: ${serviceState}`
+                service_state: getProjectTypeLabel(projectType),
+                message: message || `Contact request from ${name}.\nPhone: ${phone}\nProject: ${getProjectTypeLabel(projectType)}`
             };
 
             console.log('Sending email with params:', templateParams);
@@ -316,9 +316,8 @@ function initFormHandling() {
 function getProjectTypeLabel(value) {
     const labels = {
         'garage': 'Garage Floor',
-        'residential': 'Residential Interior',
-        'commercial': 'Commercial Space',
-        'patio': 'Patio / Outdoor',
+        'patio': 'Patio',
+        'commercial': 'Commercial',
         'other': 'Other'
     };
     return labels[value] || value;
