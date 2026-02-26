@@ -161,16 +161,12 @@ h2 {
 }
 
 .logo-img {
-    height: 70px;
-    width: 280px;
+    height: 75px;
+    width: auto;
     margin-bottom: 0.25rem;
-    background-image: url('assets/logo-r1.jpg');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: 600%;
-    /* Zooms deeply into the center to crop out the white border */
+    object-fit: contain;
     filter: invert(1) brightness(2);
-    mix-blend-mode: screen;
+    transform-origin: left center;
 }
 
 .logo p {
