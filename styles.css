@@ -262,9 +262,10 @@ h2 {
     height: 45vh;
     min-height: 350px;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     background-color: #1a1a1a;
     overflow: hidden;
+    padding-bottom: 2.5rem;
 }
 
 .hero-bg img {
